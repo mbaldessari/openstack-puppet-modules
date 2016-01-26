@@ -106,6 +106,12 @@ Finally, $resource_params are simply params that show up as options in
 the command immediately after the resource type without any additional
 keywords.
 
+#### Properties
+
+Properties can be set clusterwide or per-node using the pacemaker::property
+function. In the former case, when a property name is not recognized by
+pacemaker the force parameter needs to be true.
+
 #### See the pcs man page
 
 See the pcs man page for documentation for about the "pcs resource
@@ -190,6 +196,15 @@ $clone_params succeeds as expected.
       try_sleep       => 1,
     }
     # results in Debug: /usr/sbin/pcs resource create neutron-scale ocf:neutron:NeutronScale --clone globally-unique=true clone-max=3 interleave=true
+
+    pacemaker::property {"global-bar":
+      property        => "bar",
+      force           => true,
+      value           => "baz",
+      tries           => 1,
+      try_sleep       => 1,
+    }
+    # results in Debug: /usr/sbin/pcs property set --force bar=baz
     
     pcmk_resource { "galera":
       resource_type   => "galera",
