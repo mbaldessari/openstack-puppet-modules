@@ -116,6 +116,13 @@ pacemaker::constraint::base { "ip-192.168.122.223_on_192.168.122.3":
   score           => 'INFINITY',
 }
 
+pacemaker::constraint::location_rule { "ip-192.168.122.223_expr":
+  resource           => 'ip-192.168.122.223',
+  expression         => 'role eq webserver',
+  resource_discovery => 'exclusive',
+  score              => 0,
+}
+
 ### Add a property
 pacemaker::property {"global-bar":
   property        => "bar",
